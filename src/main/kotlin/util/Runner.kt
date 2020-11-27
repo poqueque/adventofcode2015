@@ -15,18 +15,27 @@ object Runner {
     @JvmStatic
     fun main(args: Array<String>) {
         if (args.isNotEmpty()) {
-            val day = try {
-                args[0].toInt()
-            } catch (e: NumberFormatException) {
-                printError("Day argument must be an integer")
-                return
-            }
-
-            val dayClass = getAllDayClasses()?.find { dayNumber(it.simpleName) == day }
-            if (dayClass != null) {
-                printDay(dayClass)
+            if (args[0] == "max"){
+                val allDayClasses = getAllDayClasses()
+                if (allDayClasses != null) {
+                    allDayClasses.sortedBy { dayNumber(it.simpleName) }.last().let { printDay(it) }
+                } else {
+                    printError("Couldn't find day classes - make sure you're in the right directory and try building again")
+                }
             } else {
-                printError("Day $day not found")
+                val day = try {
+                    args[0].toInt()
+                } catch (e: NumberFormatException) {
+                    printError("Day argument must be an integer")
+                    return
+                }
+
+                val dayClass = getAllDayClasses()?.find { dayNumber(it.simpleName) == day }
+                if (dayClass != null) {
+                    printDay(dayClass)
+                } else {
+                    printError("Day $day not found")
+                }
             }
         } else {
             val allDayClasses = getAllDayClasses()
