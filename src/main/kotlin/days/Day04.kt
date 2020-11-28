@@ -5,7 +5,7 @@ import util.MathUtils.md5Hash
 class Day04 : Day(4) {
 
     override fun partOne(): Any {
-        val input = inputList[0]
+        val input = inputString
         var fiveZeroes = false
         var i = 0
         while (!fiveZeroes){
@@ -16,7 +16,7 @@ class Day04 : Day(4) {
     }
 
     override fun partTwo(): Any {
-        val input = inputList[0]
+        val input = inputString
         var fiveZeroes = false
         var i = 0
         while (!fiveZeroes){
