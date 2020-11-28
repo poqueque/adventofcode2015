@@ -4,17 +4,13 @@ import util.Coor
 
 class Day06 : Day(6) {
 
-    var lightsOn = mutableListOf<Coor>()
     var lights = Array(1000) { BooleanArray(1000) { false } }
     var lightsInt = Array(1000) { IntArray(1000) { 0 } }
 
     override fun partOne(): Any {
         var i = 0
         inputList.forEach {
-            println("Processing $it")
             processInstruction(it)
-            i++
-            println("$i/${inputList.size}")
         }
         var total = 0
         for (i in 0..999)

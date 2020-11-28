@@ -18,10 +18,7 @@ class Day04 : Day(4) {
     override fun partTwo(): Any {
         val input = inputString
         var fiveZeroes = false
-        var i = 0
-        while (!fiveZeroes){
-            i++
-            fiveZeroes = md5Hash("$input$i").startsWith("000000")
+        while (md5Hash("$input$i").startsWith("000000")){
         }
         return i
     }
