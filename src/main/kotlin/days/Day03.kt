@@ -26,14 +26,14 @@ class Day03 : Day(3) {
         var xR = 0
         var yR = 0
         data[Coor(xS,yS)] = 2
-        inputString.toList().filterIndexed { index, c -> index %2 == 0 }.map{
+        inputString.toList().filterIndexed { index, _ -> index %2 == 0 }.map{
             if (it == '^') yS++;
             if (it == 'v') yS--;
             if (it == '<') xS--;
             if (it == '>') xS++;
             data[Coor(xS,yS)] = data[Coor(xS,yS)] ?: 0 + 1
         }
-        inputString.toList().filterIndexed { index, c -> index %2 == 1 }.map{
+        inputString.toList().filterIndexed { index, _ -> index %2 == 1 }.map{
             if (it == '^') yR++;
             if (it == 'v') yR--;
             if (it == '<') xR--;

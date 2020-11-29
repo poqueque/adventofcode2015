@@ -8,7 +8,6 @@ class Day06 : Day(6) {
     var lightsInt = Array(1000) { IntArray(1000) { 0 } }
 
     override fun partOne(): Any {
-        var i = 0
         inputList.forEach {
             processInstruction(it)
         }
