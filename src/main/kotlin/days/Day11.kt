@@ -8,10 +8,9 @@ class Day11 : Day(11) {
     }
 
     private fun getNextValidPassword(previousPassword: String): String {
-        var nextPassword = previousPassword
-        nextPassword++
+        var nextPassword = inc(previousPassword)
         while (!isValid(nextPassword))
-            nextPassword++
+            nextPassword = inc(nextPassword)
         return nextPassword
     }
 
@@ -41,22 +40,23 @@ class Day11 : Day(11) {
         return getNextValidPassword(getNextValidPassword(inputString)
         )
     }
-}
 
-var letters =      "abcdefghijklmnopqrstuvwxyz"
-var basedLetters = "0123456789abcdefghijklmnop"
-private operator fun String.inc(): String {
-    var b23Str = ""
-    this.forEach {
-        val pos = letters.indexOf(it)
-        b23Str+= basedLetters[pos]
+    var letters =      "abcdefghijklmnopqrstuvwxyz"
+    var basedLetters = "0123456789abcdefghijklmnop"
+    private fun inc(string: String): String {
+        var b23Str = ""
+        string.forEach {
+            val pos = letters.indexOf(it)
+            b23Str+= basedLetters[pos]
+        }
+        val value = b23Str.toLong(26) +1
+        var nextStr = ""
+        value.toString(26).forEach {
+            val pos = basedLetters.indexOf(it)
+            nextStr+= letters[pos]
+        }
+        while (nextStr.length<string.length) nextStr = "a$nextStr"
+        return nextStr
     }
-    val value = b23Str.toLong(26) +1
-    var nextStr = ""
-    value.toString(26).forEach {
-        val pos = basedLetters.indexOf(it)
-        nextStr+= letters[pos]
-    }
-    while (nextStr.length<this.length) nextStr = "a$nextStr"
-    return nextStr
+
 }
