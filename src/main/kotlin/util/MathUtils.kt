@@ -11,9 +11,9 @@ object MathUtils {
         return String.format("%032x", bigInt)
     }
 
-    fun <String> permute(list:List <String>):List<List<String>>{
+    fun <T> permute(list:List <T>):List<List<T>>{
         if(list.size==1) return listOf(list)
-        val perms=mutableListOf<List <String>>()
+        val perms=mutableListOf<List <T>>()
         val sub=list[0]
         for(perm in permute(list.drop(1)))
             for (i in 0..perm.size){
