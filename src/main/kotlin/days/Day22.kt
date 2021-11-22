@@ -3,16 +3,19 @@ package days
 import java.lang.Integer.max
 import kotlin.random.Random
 
-data class Spell(val name: String, val mana: Int, val damage: Int, val heal: Int, val effect: Effect?)
-data class Effect(
-    val name: String,
-    val armorIncrease: Int,
-    val damageIncrease: Int,
-    val manaIncrease: Int,
-    var turns: Int
-)
-
 class Day22 : Day(22) {
+
+    data class RPGWizard(var hitPoints: Int, var damage: Int, var defense: Int, var mana: Int)
+    data class RPGPlayer(var hitPoints: Int, var damage: Int, var defense: Int)
+
+    data class Spell(val name: String, val mana: Int, val damage: Int, val heal: Int, val effect: Effect?)
+    data class Effect(
+        val name: String,
+        val armorIncrease: Int,
+        val damageIncrease: Int,
+        val manaIncrease: Int,
+        var turns: Int
+    )
 
     private val none = Spell("None", 0, 0, 0, null)
     private val magicMissile = Spell("Magic Missile", 53, 4, 0, null)
@@ -57,11 +60,11 @@ class Day22 : Day(22) {
             }*/
             spellsCasted.add(s)
 
-            if (print) println(spellsCasted.map{ s-> s.name})
+            if (print) println(spellsCasted.map { s -> s.name })
 
             if (hard) {
                 me.hitPoints--
-                if (me.hitPoints <= 0) return Pair(-b.hitPoints,spellsCasted)
+                if (me.hitPoints <= 0) return Pair(-b.hitPoints, spellsCasted)
             }
             var armorEffect = getArmorEffect(effects)
             var damageEffect = getDamageEffect(effects)
@@ -82,11 +85,11 @@ class Day22 : Day(22) {
             me.hitPoints += s.heal
             me.mana -= s.mana
             manaSpent += s.mana
-            if (me.mana < 0) return Pair(-b.hitPoints,spellsCasted)
+            if (me.mana < 0) return Pair(-b.hitPoints, spellsCasted)
             if (s.effect != null) {
                 effects.add(s.effect!!.copy())
             }
-            if (b.hitPoints <= 0) return Pair(manaSpent,spellsCasted)
+            if (b.hitPoints <= 0) return Pair(manaSpent, spellsCasted)
 
 /*            if (hard) {
                 me.hitPoints--
@@ -108,14 +111,14 @@ class Day22 : Day(22) {
             b.hitPoints -= damageEffect
             if (b.hitPoints <= 0) {
                 if (print) println("- Boss has been killed ${b.hitPoints}")
-                return Pair(manaSpent,spellsCasted)
+                return Pair(manaSpent, spellsCasted)
             }
             me.hitPoints -= max(b.damage - (me.defense + armorEffect), 1)
-            if (me.hitPoints <= 0) return Pair(-b.hitPoints,spellsCasted)
+            if (me.hitPoints <= 0) return Pair(-b.hitPoints, spellsCasted)
             effects.removeIf { e -> e.turns == 0 }
             turn++
         }
-        return Pair(-b.hitPoints,spellsCasted)
+        return Pair(-b.hitPoints, spellsCasted)
     }
 
     private fun getArmorEffect(effects: MutableList<Effect>): Int {
@@ -151,7 +154,7 @@ class Day22 : Day(22) {
             if (data.first in 0 until best) {
                 best = data.first
                 println("Improved: $best")
-                println("${spellsCasted.map{s->s.name}}")
+                println("${spellsCasted.map { s -> s.name }}")
             }
         }
 
@@ -170,9 +173,9 @@ class Day22 : Day(22) {
             if (data.first in 0 until best) {
                 best = data.first
                 println("Improved: $best")
-                println("${spellsCasted.map{s->s.name}}")
+                println("${spellsCasted.map { s -> s.name }}")
             }
-            if (data.first in bestLost+1 until 0) {
+            if (data.first in bestLost + 1 until 0) {
                 bestLost = data.first
 //                println("Lost: $bestLost")
 //                println("${spellsCasted.map{s->s.name}}")
@@ -182,4 +185,3 @@ class Day22 : Day(22) {
     }
 }
 
-data class RPGWizard(var hitPoints: Int, var damage: Int, var defense: Int, var mana: Int)

@@ -4,6 +4,8 @@ import java.lang.Integer.max
 
 class Day21 : Day(21) {
 
+    data class RPGPlayer(var hitPoints: Int, var damage: Int, var defense: Int)
+
     val weapons = mutableMapOf(
         "Dagger" to listOf(8, 4, 0),
         "Shortsword" to listOf(10, 5, 0),
@@ -94,5 +96,3 @@ class Day21 : Day(21) {
         return expensiveOption
     }
 }
-
-data class RPGPlayer(var hitPoints: Int, var damage: Int, var defense: Int)
