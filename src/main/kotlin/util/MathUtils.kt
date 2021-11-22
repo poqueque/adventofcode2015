@@ -3,6 +3,7 @@ package util
 import java.math.BigInteger
 import java.security.MessageDigest
 
+
 object MathUtils {
 
     fun md5Hash(str: String): String {
@@ -22,5 +23,28 @@ object MathUtils {
                 perms.add(newPerm)
             }
         return perms
+    }
+
+    fun variations(list: List<Int>, r: Int): List<List<Int>> {
+        val combinations: MutableList<MutableList<Int>> = ArrayList()
+        helper(combinations, MutableList(r) {0}, 0, list.size - 1, 0, list)
+        return combinations
+    }
+    private fun helper(
+        combinations: MutableList<MutableList<Int>>,
+        data: MutableList<Int>,
+        start: Int,
+        end: Int,
+        index: Int,
+        list: List<Int>
+    ) {
+        if (index == data.size) {
+            val combination = data.toMutableList()
+            combinations.add(combination)
+        } else if (start <= end) {
+            data[index] = list[start]
+            helper(combinations, data, start + 1, end, index + 1, list)
+            helper(combinations, data, start + 1, end, index, list)
+        }
     }
 }
